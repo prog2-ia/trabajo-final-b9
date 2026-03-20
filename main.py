@@ -6,7 +6,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 
 from club_lectura.enums import Genero, Nivel
 from club_lectura.exceptions import DuplicadoError, ValoracionInvalidaError
-from club_lectura.models import Articulo, Bibliografia, Libro, Resena, SesionLectura
+from club_lectura.modelos import Articulo, Bibliografia, Libro, Resena, SesionLectura
 
 
 def main():
