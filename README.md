@@ -98,6 +98,48 @@ Una vez iniciado, aparecerá un menú de texto en la terminal con opciones para:
 - crear sesiones de lectura
 - ordenar materiales por prioridad
 
+## Ejemplo de ejecución
+
+A continuación se muestra un ejemplo de ejecución del programa en consola:
+
+```bash
+$ python main.py
+
+=== CLUB DE LECTURA Y BIBLIOGRAFÍAS ===
+1. Añadir libro
+2. Añadir artículo
+3. Ver materiales
+4. Crear bibliografía
+5. Añadir material a bibliografía
+6. Ver bibliografías
+7. Añadir reseña
+8. Ver reseñas y valoración media de un material
+9. Crear sesión de lectura
+10. Ver sesiones
+11. Ver materiales ordenados por prioridad
+0. Salir
+
+Elige una opción: 1
+
+=== AÑADIR LIBRO ===
+Título: Los pilares de la tierra
+Autor: Ken Follett
+
+Géneros disponibles:
+1. Novela
+2. Ensayo
+3. Ciencia ficción
+4. Fantasía
+5. Historia
+6. Poesía
+7. Divulgación
+
+Selecciona un género: 1
+Número de páginas: 1040
+Nivel de lectura: alto
+
+Libro añadido correctamente.
+
 ## Estado actual
 
 Actualmente, el proyecto funciona mediante interacción por consola a través de un menú textual.
