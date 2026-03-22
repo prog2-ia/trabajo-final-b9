@@ -1,19 +1,19 @@
 # Club de lectura y bibliografías
 
-Proyecto en Python orientado a objetos para gestionar un club de lectura. Permite registrar materiales de lectura, organizar sesiones, crear reseñas y construir bibliografías combinables.
+Proyecto en Python orientado a objetos para gestionar un club de lectura y construir bibliografías combinables.
 
 ## Objetivo
 
-El proyecto ha sido diseñado para aplicar principios de Programación Orientada a Objetos en Python:
+El proyecto ha sido diseñado para aplicar principios de Programación Orientada a Objetos en Python, como:
 
-- clases y objetos,
-- encapsulación,
-- herencia,
-- polimorfismo,
-- clases abstractas,
-- modularidad,
-- sobrecarga de operadores,
-- excepciones personalizadas.
+- clases y objetos
+- encapsulación
+- herencia
+- polimorfismo
+- clases abstractas
+- modularidad
+- sobrecarga de operadores
+- excepciones personalizadas
 
 ## Funcionalidades principales
 
@@ -31,15 +31,84 @@ El proyecto ha sido diseñado para aplicar principios de Programación Orientada
 ## Estructura del proyecto
 
 ```text
-club-lectura/
+TRABAJO-FINAL-B9/
 │
+├── src/
+│   └── club_lectura/
+│       ├── __pycache__/
+│       ├── app/
+│       │   ├── __pycache__/
+│       │   ├── __init__.py
+│       │   ├── gestores.py
+│       │   ├── io.py
+│       │   └── menu.py
+│       │
+│       ├── enums/
+│       │   ├── __pycache__/
+│       │   ├── __init__.py
+│       │   ├── genero.py
+│       │   └── nivel.py
+│       │
+│       ├── exceptions/
+│       │   ├── __pycache__/
+│       │   ├── __init__.py
+│       │   └── errors.py
+│       │
+│       ├── modelos/
+│       │   ├── __pycache__/
+│       │   ├── __init__.py
+│       │   ├── articulo.py
+│       │   ├── bibliografia.py
+│       │   ├── libro.py
+│       │   ├── material.py
+│       │   ├── resena.py
+│       │   └── sesion.py
+│       │
+│       ├── utils/
+│       │   ├── __pycache__/
+│       │   ├── __init__.py
+│       │   └── validadores.py
+│       │
+│       └── __init__.py
+│
+├── .gitignore
 ├── main.py
-├── requirements.txt
 ├── README.md
-│
-└── src/
-    └── club_lectura/
-        ├── enums/
-        ├── exceptions/
-        ├── models/
-        └── utils/
+└── requirements.txt
+```
+
+## Uso
+
+El proyecto se ejecuta desde el archivo principal `main.py`, que despliega un menú interactivo en consola desde el que se pueden gestionar las distintas funcionalidades del sistema.
+
+Para ejecutarlo:
+
+```bash
+python main.py
+```
+
+Una vez iniciado, aparecerá un menú de texto en la terminal con opciones para:
+
+- añadir libros y artículos
+- ver materiales
+- crear bibliografías
+- añadir materiales a bibliografías
+- crear reseñas
+- consultar valoraciones
+- crear sesiones de lectura
+- ordenar materiales por prioridad
+
+## Estado actual
+
+Actualmente, el proyecto funciona mediante interacción por consola a través de un menú textual.
+
+## Mejoras futuras
+
+Como ampliación futura del trabajo, se plantea:
+
+- incorporar una base de datos para almacenar de forma persistente los materiales, bibliografías, reseñas y sesiones
+- sustituir el menú de texto en consola por una interfaz más visual e intuitiva
+
+## Autoría
+
+Trabajo realizado por Pablo Candela y Blanca Xifra.
