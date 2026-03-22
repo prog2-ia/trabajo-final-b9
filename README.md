@@ -98,6 +98,21 @@ Una vez iniciado, aparecerá un menú de texto en la terminal con opciones para:
 - crear sesiones de lectura
 - ordenar materiales por prioridad
 
+## Estado actual
+
+Actualmente, el proyecto funciona mediante interacción por consola a través de un menú textual.
+
+## Mejoras futuras
+
+Como ampliación futura del trabajo, se plantea:
+
+- incorporar una base de datos para almacenar de forma persistente los materiales, bibliografías, reseñas y sesiones
+- sustituir el menú de texto en consola por una interfaz más visual e intuitiva
+
+## Autoría
+
+Trabajo realizado por Pablo Candela y Blanca Xifra.
+
 ## Ejemplo de ejecución
 
 A continuación se muestra un ejemplo de ejecución del programa en consola:
@@ -141,17 +156,3 @@ Nivel de lectura: alto
 Libro añadido correctamente.
 '''
 
-## Estado actual
-
-Actualmente, el proyecto funciona mediante interacción por consola a través de un menú textual.
-
-## Mejoras futuras
-
-Como ampliación futura del trabajo, se plantea:
-
-- incorporar una base de datos para almacenar de forma persistente los materiales, bibliografías, reseñas y sesiones
-- sustituir el menú de texto en consola por una interfaz más visual e intuitiva
-
-## Autoría
-
-Trabajo realizado por Pablo Candela y Blanca Xifra.
