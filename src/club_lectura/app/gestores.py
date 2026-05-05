@@ -18,6 +18,7 @@ from .io import (
     seleccionar_material,
 )
 
+from club_lectura.persistence import JsonRepository
 
 materiales = []
 bibliografias = []
@@ -227,3 +228,61 @@ def ver_materiales_ordenados():
             f"- {material.titulo} | media={material.valoracion_media()} | "
             f"nivel={material.nivel.value}"
         )
+
+def eliminar_material():
+    if not materiales:
+        print("\nNo hay materiales para eliminar.")
+        return
+
+    print("\nMateriales disponibles:")
+    for material in materiales:
+        print(f"{material.id}. {material.titulo} - {material.autor}")
+
+    try:
+        material_id = int(input("\nIntroduce el ID del material que quieres eliminar: "))
+    except ValueError:
+        print("\nEl ID debe ser un número.")
+        return
+
+    material_a_eliminar = None
+
+    for material in materiales:
+        if material.id == material_id:
+            material_a_eliminar = material
+            break
+
+    if material_a_eliminar is None:
+        print("\nNo existe ningún material con ese ID.")
+        return
+
+    materiales.remove(material_a_eliminar)
+
+    for bibliografia in bibliografias:
+        bibliografia.eliminar_material(material_id)
+
+    print(f"\nMaterial eliminado correctamente: {material_a_eliminar.titulo}")
+
+def guardar_datos_json():
+    repositorio = JsonRepository("data/club_lectura.json")
+    repositorio.guardar(materiales, bibliografias, sesiones)
+
+    print("\nDatos guardados correctamente en data/club_lectura.json.")
+
+
+def cargar_datos_json():
+    repositorio = JsonRepository("data/club_lectura.json")
+
+    materiales_cargados, bibliografias_cargadas, sesiones_cargadas = repositorio.cargar()
+
+    materiales.clear()
+    bibliografias.clear()
+    sesiones.clear()
+
+    materiales.extend(materiales_cargados)
+    bibliografias.extend(bibliografias_cargadas)
+    sesiones.extend(sesiones_cargadas)
+
+    print("\nDatos cargados correctamente desde data/club_lectura.json.")
+    print(f"Materiales cargados: {len(materiales)}")
+    print(f"Bibliografías cargadas: {len(bibliografias)}")
+    print(f"Sesiones cargadas: {len(sesiones)}")

@@ -10,6 +10,9 @@ from .gestores import (
     ver_materiales_ordenados,
     ver_resenas_y_media,
     ver_sesiones,
+    eliminar_material,
+    guardar_datos_json,
+    cargar_datos_json,
 )
 
 
@@ -26,10 +29,14 @@ def mostrar_menu():
     print("9. Crear sesión de lectura")
     print("10. Ver sesiones")
     print("11. Ver materiales ordenados por prioridad")
+    print("12. Guardar datos")
+    print("13. Cargar datos")
+    print("14. Eliminar material")
     print("0. Salir")
 
 
 def ejecutar_menu():
+    cargar_datos_json()
     while True:
         mostrar_menu()
         opcion = input("\nElige una opción: ").strip()
@@ -56,8 +63,15 @@ def ejecutar_menu():
             ver_sesiones()
         elif opcion == "11":
             ver_materiales_ordenados()
+        elif opcion == "12":
+            guardar_datos_json()
+        elif opcion == "13":
+            cargar_datos_json()
+        elif opcion == "14":
+            eliminar_material()
         elif opcion == "0":
-            print("\nSaliendo del programa...")
+            guardar_datos_json()
+            print("\nDatos guardados. Saliendo del programa...")
             break
         else:
             print("\nOpción no válida. Inténtalo de nuevo.")
