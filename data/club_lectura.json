@@ -1,0 +1,146 @@
+{
+    "materiales": [
+        {
+            "id": 1,
+            "titulo": "1984",
+            "autor": "George Orwell",
+            "genero": "CIENCIA_FICCION",
+            "nivel": "INTERMEDIO",
+            "paginas": 328,
+            "resenas": [
+                {
+                    "autor_resena": "Juan",
+                    "valoracion": 5,
+                    "comentario": "Una novela muy potente para debatir sobre vigilancia, poder y libertad."
+                }
+            ],
+            "tipo": "libro",
+            "isbn": "978-0451524935"
+        },
+        {
+            "id": 2,
+            "titulo": "Fahrenheit 451",
+            "autor": "Ray Bradbury",
+            "genero": "CIENCIA_FICCION",
+            "nivel": "INTERMEDIO",
+            "paginas": 256,
+            "resenas": [],
+            "tipo": "libro",
+            "isbn": "978-1451673319"
+        },
+        {
+            "id": 3,
+            "titulo": "El nombre de la rosa",
+            "autor": "Umberto Eco",
+            "genero": "NOVELA",
+            "nivel": "AVANZADO",
+            "paginas": 592,
+            "resenas": [],
+            "tipo": "libro",
+            "isbn": "978-8426415051"
+        },
+        {
+            "id": 4,
+            "titulo": "Sapiens",
+            "autor": "Yuval Noah Harari",
+            "genero": "HISTORIA",
+            "nivel": "AVANZADO",
+            "paginas": 496,
+            "resenas": [],
+            "tipo": "libro",
+            "isbn": "978-8499924214"
+        },
+        {
+            "id": 5,
+            "titulo": "La sombra del viento",
+            "autor": "Carlos Ruiz Zafón",
+            "genero": "NOVELA",
+            "nivel": "INTERMEDIO",
+            "paginas": 576,
+            "resenas": [],
+            "tipo": "libro",
+            "isbn": "978-8408172177"
+        },
+        {
+            "id": 6,
+            "titulo": "El Hobbit",
+            "autor": "J. R. R. Tolkien",
+            "genero": "FANTASIA",
+            "nivel": "BASICO",
+            "paginas": 310,
+            "resenas": [
+                {
+                    "autor_resena": "Marta",
+                    "valoracion": 5,
+                    "comentario": "Perfecto para iniciar el club con una lectura sencilla y entretenida."
+                }
+            ],
+            "tipo": "libro",
+            "isbn": "978-8445000656"
+        },
+        {
+            "id": 7,
+            "titulo": "La lectura en la era digital",
+            "autor": "Ana Pérez",
+            "genero": "ENSAYO",
+            "nivel": "BASICO",
+            "paginas": 18,
+            "resenas": [
+                {
+                    "autor_resena": "Lucía",
+                    "valoracion": 3,
+                    "comentario": "Artículo breve, claro y útil como introducción."
+                }
+            ],
+            "tipo": "articulo",
+            "revista": "Revista de Humanidades",
+            "doi": "10.1234/lectura.2026.001"
+        },
+        {
+            "id": 8,
+            "titulo": "Ciencia ficción y control social",
+            "autor": "Laura Gómez",
+            "genero": "CIENCIA_FICCION",
+            "nivel": "INTERMEDIO",
+            "paginas": 21,
+            "resenas": [],
+            "tipo": "articulo",
+            "revista": "Estudios Literarios Contemporáneos",
+            "doi": "10.4321/scifi.control.2025.003"
+        }
+    ],
+    "bibliografias": [
+        {
+            "nombre": "Bibliografía de distopías y control social",
+            "materiales_ids": []
+        },
+        {
+            "nombre": "Bibliografía de historia y memoria cultural",
+            "materiales_ids": []
+        },
+        {
+            "nombre": "Lecturas de iniciación al club",
+            "materiales_ids": []
+        },
+        {
+            "nombre": "Ensayo, crítica y pensamiento contemporáneo",
+            "materiales_ids": []
+        }
+    ],
+    "sesiones": [
+        {
+            "fecha": "2026-03-20T18:30:00",
+            "material_id": 1,
+            "moderador": "Juan",
+            "asistentes": [
+                "Marta"
+            ]
+        },
+        {
+            "fecha": "2026-03-27T17:00:00",
+            "material_id": 6,
+            "moderador": "Marta",
+            "asistentes": []
+        }
+    ]
+}
