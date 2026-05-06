@@ -107,6 +107,23 @@
             "tipo": "articulo",
             "revista": "Estudios Literarios Contemporáneos",
             "doi": "10.4321/scifi.control.2025.003"
+        },
+        {
+            "id": 9,
+            "titulo": "El camino de los reyes",
+            "autor": "Brandon Sanderson",
+            "genero": "FANTASIA",
+            "nivel": "AVANZADO",
+            "paginas": 1215,
+            "resenas": [
+                {
+                    "autor_resena": "Pablo Candela",
+                    "valoracion": 5,
+                    "comentario": "Muy buen libro"
+                }
+            ],
+            "tipo": "libro",
+            "isbn": "9780765326355"
         }
     ],
     "bibliografias": [
@@ -124,6 +141,12 @@
         },
         {
             "nombre": "Ensayo, crítica y pensamiento contemporáneo",
+            "materiales_ids": [
+                7
+            ]
+        },
+        {
+            "nombre": "Paquito",
             "materiales_ids": []
         }
     ],
