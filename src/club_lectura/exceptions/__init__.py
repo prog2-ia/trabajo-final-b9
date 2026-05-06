@@ -1,1 +1,7 @@
-from .errors import ClubLecturaError, DuplicadoError, MetadatoInvalidoError, ValoracionInvalidaError
+from .errors import (
+    ClubLecturaError,
+    DuplicadoError,
+    MetadatoInvalidoError,
+    ValoracionInvalidaError,
+    PersistenciaError,
+)

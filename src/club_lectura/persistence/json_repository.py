@@ -4,6 +4,7 @@ from pathlib import Path
 
 from club_lectura.enums import Genero, Nivel
 from club_lectura.modelos import Articulo, Bibliografia, Libro, MaterialBibliografico, Resena, SesionLectura
+from club_lectura.exceptions import PersistenciaError
 
 
 class JsonRepository:
@@ -26,31 +27,63 @@ class JsonRepository:
         if not self.ruta_fichero.exists():
             return [], [], []
 
-        with open(self.ruta_fichero, "r", encoding="utf-8") as fichero:
-            datos = json.load(fichero)
+        try:
+            with open(self.ruta_fichero, "r", encoding="utf-8") as fichero:
+                datos = json.load(fichero)
 
-        materiales = []
-        materiales_por_id = {}
+            if not isinstance(datos, dict):
+                raise PersistenciaError(
+                    "El archivo JSON no tiene el formato esperado. "
+                    "Debe contener un diccionario principal."
+                )
 
-        for item in datos.get("materiales", []):
-            material = self._dict_a_material(item)
-            materiales.append(material)
-            materiales_por_id[material.id] = material
+            materiales = []
+            materiales_por_id = {}
 
-        bibliografias = []
-        for item in datos.get("bibliografias", []):
-            bibliografia = self._dict_a_bibliografia(item, materiales_por_id)
-            bibliografias.append(bibliografia)
+            for item in datos.get("materiales", []):
+                material = self._dict_a_material(item)
+                materiales.append(material)
+                materiales_por_id[material.id] = material
 
-        sesiones = []
-        for item in datos.get("sesiones", []):
-            sesion = self._dict_a_sesion(item, materiales_por_id)
-            if sesion is not None:
-                sesiones.append(sesion)
+            bibliografias = []
+            for item in datos.get("bibliografias", []):
+                bibliografia = self._dict_a_bibliografia(item, materiales_por_id)
+                bibliografias.append(bibliografia)
 
-        self._actualizar_contador_ids(materiales)
+            sesiones = []
+            for item in datos.get("sesiones", []):
+                sesion = self._dict_a_sesion(item, materiales_por_id)
+                if sesion is not None:
+                    sesiones.append(sesion)
 
-        return materiales, bibliografias, sesiones
+            self._actualizar_contador_ids(materiales)
+
+            return materiales, bibliografias, sesiones
+
+        except json.JSONDecodeError as error:
+            raise PersistenciaError(
+                "No se han podido cargar los datos porque el archivo JSON está dañado o mal escrito."
+            ) from error
+
+        except KeyError as error:
+            raise PersistenciaError(
+                f"No se han podido cargar los datos porque falta el campo obligatorio: {error}."
+            ) from error
+
+        except TypeError as error:
+            raise PersistenciaError(
+                "No se han podido cargar los datos porque el JSON contiene datos con un tipo incorrecto."
+            ) from error
+
+        except ValueError as error:
+            raise PersistenciaError(
+                f"No se han podido cargar los datos porque hay un valor inválido: {error}."
+            ) from error
+
+        except OSError as error:
+            raise PersistenciaError(
+                "No se ha podido leer el archivo de datos."
+            ) from error
 
     def _material_a_dict(self, material) -> dict:
         datos = {

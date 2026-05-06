@@ -13,6 +13,8 @@ from .gestores import (
     eliminar_material,
     guardar_datos_json,
     cargar_datos_json,
+    guardar_datos_binario,
+    cargar_datos_binario
 )
 
 
@@ -32,6 +34,8 @@ def mostrar_menu():
     print("12. Guardar datos")
     print("13. Cargar datos")
     print("14. Eliminar material")
+    print("15. Guardar datos en binario")
+    print("16. Cargar datos desde binario")
     print("0. Salir")
 
 
@@ -69,6 +73,10 @@ def ejecutar_menu():
             cargar_datos_json()
         elif opcion == "14":
             eliminar_material()
+        elif opcion == "15":
+            guardar_datos_binario()
+        elif opcion == "16":
+            cargar_datos_binario()
         elif opcion == "0":
             guardar_datos_json()
             print("\nDatos guardados. Saliendo del programa...")

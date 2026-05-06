@@ -12,3 +12,11 @@ class MetadatoInvalidoError(ClubLecturaError):
 
 class ValoracionInvalidaError(ClubLecturaError):
     """Se lanza cuando la valoración de una reseña no es válida."""
+
+
+class ElementoNoEncontradoError(ClubLecturaError):
+    """Se lanza cuando no se encuentra un material, bibliografía o sesión."""
+
+
+class PersistenciaError(ClubLecturaError):
+    """Se lanza cuando hay un problema al guardar o cargar datos."""

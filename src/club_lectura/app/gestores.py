@@ -19,13 +19,16 @@ from .io import (
 )
 
 from club_lectura.persistence import JsonRepository
+from club_lectura.persistence import BinaryRepository
+from club_lectura.exceptions import PersistenciaError
+
 
 materiales = []
 bibliografias = []
 sesiones = []
 
 
-def agregar_libro():
+def agregar_libro() -> None:
     print("\n=== AÑADIR LIBRO ===")
     titulo = pedir_texto("Título: ")
     autor = pedir_texto("Autor: ")
@@ -49,7 +52,7 @@ def agregar_libro():
         print(f"\nError al crear el libro: {e}")
 
 
-def agregar_articulo():
+def agregar_articulo() -> None:
     print("\n=== AÑADIR ARTÍCULO ===")
     titulo = pedir_texto("Título: ")
     autor = pedir_texto("Autor: ")
@@ -75,11 +78,11 @@ def agregar_articulo():
         print(f"\nError al crear el artículo: {e}")
 
 
-def ver_materiales():
+def ver_materiales() -> None:
     mostrar_materiales(materiales)
 
 
-def crear_bibliografia():
+def crear_bibliografia() -> None:
     print("\n=== CREAR BIBLIOGRAFÍA ===")
     nombre = pedir_texto("Nombre de la bibliografía: ")
 
@@ -262,15 +265,44 @@ def eliminar_material():
 
     print(f"\nMaterial eliminado correctamente: {material_a_eliminar.titulo}")
 
-def guardar_datos_json():
+def guardar_datos_json() -> None:
     repositorio = JsonRepository("data/club_lectura.json")
     repositorio.guardar(materiales, bibliografias, sesiones)
 
     print("\nDatos guardados correctamente en data/club_lectura.json.")
 
 
-def cargar_datos_json():
+def cargar_datos_json() -> None:
     repositorio = JsonRepository("data/club_lectura.json")
+
+    try:
+        materiales_cargados, bibliografias_cargadas, sesiones_cargadas = repositorio.cargar()
+
+        materiales.clear()
+        bibliografias.clear()
+        sesiones.clear()
+
+        materiales.extend(materiales_cargados)
+        bibliografias.extend(bibliografias_cargadas)
+        sesiones.extend(sesiones_cargadas)
+
+        print("\nDatos cargados correctamente desde data/club_lectura.json.")
+        print(f"Materiales cargados: {len(materiales)}")
+        print(f"Bibliografías cargadas: {len(bibliografias)}")
+        print(f"Sesiones cargadas: {len(sesiones)}")
+
+    except PersistenciaError as error:
+        print(f"\nError de persistencia: {error}")
+
+def guardar_datos_binario() -> None:
+    repositorio = BinaryRepository("data/club_lectura.bin")
+    repositorio.guardar(materiales, bibliografias, sesiones)
+
+    print("\nDatos guardados correctamente en formato binario.")
+
+
+def cargar_datos_binario() -> None:
+    repositorio = BinaryRepository("data/club_lectura.bin")
 
     materiales_cargados, bibliografias_cargadas, sesiones_cargadas = repositorio.cargar()
 
@@ -282,7 +314,7 @@ def cargar_datos_json():
     bibliografias.extend(bibliografias_cargadas)
     sesiones.extend(sesiones_cargadas)
 
-    print("\nDatos cargados correctamente desde data/club_lectura.json.")
+    print("\nDatos cargados correctamente desde fichero binario.")
     print(f"Materiales cargados: {len(materiales)}")
     print(f"Bibliografías cargadas: {len(bibliografias)}")
     print(f"Sesiones cargadas: {len(sesiones)}")
