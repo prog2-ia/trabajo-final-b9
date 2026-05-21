@@ -267,7 +267,11 @@ def eliminar_material():
 
 def guardar_datos_json() -> None:
     repositorio = JsonRepository("data/club_lectura.json")
-    repositorio.guardar(materiales, bibliografias, sesiones)
+    try:
+        repositorio.guardar(materiales, bibliografias, sesiones)
+    except PersistenciaError as error:
+        print(f"\nError de persistencia: {error}")
+        return
 
     print("\nDatos guardados correctamente en data/club_lectura.json.")
 
@@ -296,7 +300,11 @@ def cargar_datos_json() -> None:
 
 def guardar_datos_binario() -> None:
     repositorio = BinaryRepository("data/club_lectura.bin")
-    repositorio.guardar(materiales, bibliografias, sesiones)
+    try:
+        repositorio.guardar(materiales, bibliografias, sesiones)
+    except PersistenciaError as error:
+        print(f"\nError de persistencia: {error}")
+        return
 
     print("\nDatos guardados correctamente en formato binario.")
 
@@ -304,7 +312,11 @@ def guardar_datos_binario() -> None:
 def cargar_datos_binario() -> None:
     repositorio = BinaryRepository("data/club_lectura.bin")
 
-    materiales_cargados, bibliografias_cargadas, sesiones_cargadas = repositorio.cargar()
+    try:
+        materiales_cargados, bibliografias_cargadas, sesiones_cargadas = repositorio.cargar()
+    except PersistenciaError as error:
+        print(f"\nError de persistencia: {error}")
+        return
 
     materiales.clear()
     bibliografias.clear()

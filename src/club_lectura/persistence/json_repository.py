@@ -12,16 +12,22 @@ class JsonRepository:
         self.ruta_fichero = Path(ruta_fichero)
 
     def guardar(self, materiales: list, bibliografias: list, sesiones: list) -> None:
-        self.ruta_fichero.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            self.ruta_fichero.parent.mkdir(parents=True, exist_ok=True)
 
-        datos = {
-            "materiales": [self._material_a_dict(material) for material in materiales],
-            "bibliografias": [self._bibliografia_a_dict(bibliografia) for bibliografia in bibliografias],
-            "sesiones": [self._sesion_a_dict(sesion) for sesion in sesiones],
-        }
+            datos = {
+                "materiales": [self._material_a_dict(material) for material in materiales],
+                "bibliografias": [self._bibliografia_a_dict(bibliografia) for bibliografia in bibliografias],
+                "sesiones": [self._sesion_a_dict(sesion) for sesion in sesiones],
+            }
 
-        with open(self.ruta_fichero, "w", encoding="utf-8") as fichero:
-            json.dump(datos, fichero, indent=4, ensure_ascii=False)
+            with open(self.ruta_fichero, "w", encoding="utf-8") as fichero:
+                json.dump(datos, fichero, indent=4, ensure_ascii=False)
+
+        except (OSError, TypeError, ValueError) as error:
+            raise PersistenciaError(
+                "No se han podido guardar los datos en el archivo JSON."
+            ) from error
 
     def cargar(self) -> tuple[list, list, list]:
         if not self.ruta_fichero.exists():

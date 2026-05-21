@@ -1,158 +1,160 @@
-# Club de lectura y bibliografías
+# Club de lectura y bibliografias
 
-Proyecto en Python orientado a objetos para gestionar un club de lectura y construir bibliografías combinables.
+Proyecto en Python orientado a objetos para gestionar materiales de lectura, resenas, bibliografias y sesiones de un club de lectura mediante un menu de consola.
 
 ## Objetivo
 
-El proyecto ha sido diseñado para aplicar principios de Programación Orientada a Objetos en Python, como:
+El proyecto aplica conceptos de Programacion Orientada a Objetos:
 
 - clases y objetos
-- encapsulación
+- encapsulacion
 - herencia
 - polimorfismo
 - clases abstractas
 - modularidad
 - sobrecarga de operadores
 - excepciones personalizadas
+- persistencia en ficheros JSON y binarios
 
-## Funcionalidades principales
+## Funcionalidades
 
-- Registro de materiales bibliográficos.
-- Distinción entre distintos tipos de lectura:
-  - `Libro`
-  - `Articulo`
-- Gestión de reseñas con valoración numérica.
-- Gestión de bibliografías sin duplicados.
-- Combinación de bibliografías con el operador `+`.
-- Comparación de reseñas por valoración.
-- Priorización de lecturas por valoración media.
-- Organización de sesiones de lectura.
+- Registrar libros y articulos.
+- Ver todos los materiales guardados.
+- Crear bibliografias.
+- Anadir materiales a bibliografias evitando duplicados.
+- Consultar bibliografias y su contenido.
+- Anadir resenas con valoracion entre 1 y 5.
+- Consultar resenas y valoracion media de cada material.
+- Crear sesiones de lectura con fecha, moderador y asistentes.
+- Ver sesiones registradas.
+- Ordenar materiales por prioridad.
+- Eliminar materiales.
+- Guardar y cargar datos en formato JSON.
+- Guardar y cargar datos en formato binario.
 
-## Estructura del proyecto
+## Estructura
 
 ```text
-TRABAJO-FINAL-B9/
-│
-├── src/
-│   └── club_lectura/
-│       ├── __pycache__/
-│       ├── app/
-│       │   ├── __pycache__/
-│       │   ├── __init__.py
-│       │   ├── gestores.py
-│       │   ├── io.py
-│       │   └── menu.py
-│       │
-│       ├── enums/
-│       │   ├── __pycache__/
-│       │   ├── __init__.py
-│       │   ├── genero.py
-│       │   └── nivel.py
-│       │
-│       ├── exceptions/
-│       │   ├── __pycache__/
-│       │   ├── __init__.py
-│       │   └── errors.py
-│       │
-│       ├── modelos/
-│       │   ├── __pycache__/
-│       │   ├── __init__.py
-│       │   ├── articulo.py
-│       │   ├── bibliografia.py
-│       │   ├── libro.py
-│       │   ├── material.py
-│       │   ├── resena.py
-│       │   └── sesion.py
-│       │
-│       ├── utils/
-│       │   ├── __pycache__/
-│       │   ├── __init__.py
-│       │   └── validadores.py
-│       │
-│       └── __init__.py
-│
-├── .gitignore
-├── main.py
-├── README.md
-└── requirements.txt
+trabajo-final-b9/
+|-- main.py
+|-- README.md
+|-- requirements.txt
+|-- data/
+|   |-- club_lectura.json
+|   `-- club_lectura.bin
+`-- src/
+    `-- club_lectura/
+        |-- app/
+        |   |-- gestores.py
+        |   |-- io.py
+        |   `-- menu.py
+        |-- enums/
+        |   |-- genero.py
+        |   `-- nivel.py
+        |-- exceptions/
+        |   `-- errors.py
+        |-- modelos/
+        |   |-- articulo.py
+        |   |-- bibliografia.py
+        |   |-- libro.py
+        |   |-- material.py
+        |   |-- resena.py
+        |   `-- sesion.py
+        |-- persistence/
+        |   |-- binary_repository.py
+        |   `-- json_repository.py
+        `-- utils/
+            `-- validadores.py
 ```
 
-## Uso
+## Ejecucion
 
-El proyecto se ejecuta desde el archivo principal `main.py`, que despliega un menú interactivo en consola desde el que se pueden gestionar las distintas funcionalidades del sistema.
-
-Para ejecutarlo:
+El programa se ejecuta desde `main.py`:
 
 ```bash
 python main.py
 ```
 
-Una vez iniciado, aparecerá un menú de texto en la terminal con opciones para:
+Al iniciar, se cargan automaticamente los datos desde `data/club_lectura.json` si el fichero existe. Despues aparece un menu interactivo con las operaciones disponibles.
 
-- añadir libros y artículos
-- ver materiales
-- crear bibliografías
-- añadir materiales a bibliografías
-- crear reseñas
-- consultar valoraciones
-- crear sesiones de lectura
-- ordenar materiales por prioridad
+Al salir con la opcion `0`, el programa guarda automaticamente los datos en `data/club_lectura.json`.
 
-## Estado actual
+## Menu Principal
 
-Actualmente, el proyecto funciona mediante interacción por consola a través de un menú textual.
-
-## Mejoras futuras
-
-Como ampliación futura del trabajo, se plantea:
-
-- incorporar una base de datos para almacenar de forma persistente los materiales, bibliografías, reseñas y sesiones
-- sustituir el menú de texto en consola por una interfaz más visual e intuitiva
-
-## Autoría
-
-Trabajo realizado por Pablo Candela y Blanca Xifra.
-
-## Ejemplo de ejecución
-
-A continuación se muestra un ejemplo de ejecución del programa en consola:
-
-```bash
-$ python main.py
-
-=== CLUB DE LECTURA Y BIBLIOGRAFÍAS ===
-1. Añadir libro
-2. Añadir artículo
+```text
+1. Anadir libro
+2. Anadir articulo
 3. Ver materiales
-4. Crear bibliografía
-5. Añadir material a bibliografía
-6. Ver bibliografías
-7. Añadir reseña
-8. Ver reseñas y valoración media de un material
-9. Crear sesión de lectura
+4. Crear bibliografia
+5. Anadir material a bibliografia
+6. Ver bibliografias
+7. Anadir resena
+8. Ver resenas y valoracion media de un material
+9. Crear sesion de lectura
 10. Ver sesiones
 11. Ver materiales ordenados por prioridad
+12. Guardar datos
+13. Cargar datos
+14. Eliminar material
+15. Guardar datos en binario
+16. Cargar datos desde binario
 0. Salir
+```
 
-Elige una opción: 1
+## Persistencia
 
-=== AÑADIR LIBRO ===
-Título: Los pilares de la tierra
-Autor: Ken Follett
+El proyecto tiene dos repositorios de persistencia:
 
-Géneros disponibles:
-1. Novela
-2. Ensayo
-3. Ciencia ficción
-4. Fantasía
-5. Historia
-6. Poesía
-7. Divulgación
+- `JsonRepository`: guarda los datos en `data/club_lectura.json` usando JSON. Es el formato principal del programa, porque se carga al iniciar y se guarda al salir.
+- `BinaryRepository`: guarda los datos en `data/club_lectura.bin` usando `pickle`. Este formato conserva directamente los objetos de Python en un fichero binario.
 
-Selecciona un género: 1
-Número de páginas: 1040
-Nivel de lectura: alto
+El repositorio binario abre los ficheros con modos binarios:
 
-Libro añadido correctamente.
-'''
+- `"wb"` para escribir.
+- `"rb"` para leer.
 
+Si el fichero JSON o binario no existe al cargar, el programa empieza con listas vacias.
+
+## Manejo De Excepciones
+
+El proyecto define excepciones propias en `src/club_lectura/exceptions/errors.py`:
+
+- `ClubLecturaError`
+- `DuplicadoError`
+- `MetadatoInvalidoError`
+- `ValoracionInvalidaError`
+- `ElementoNoEncontradoError`
+- `PersistenciaError`
+
+Estas excepciones se usan para separar los errores del dominio del programa de los errores internos de Python.
+
+Ejemplos:
+
+- Si se intenta anadir un material duplicado a una bibliografia, se lanza `DuplicadoError`.
+- Si un campo obligatorio esta vacio, se lanza `MetadatoInvalidoError`.
+- Si una valoracion no esta entre 1 y 5, se lanza `ValoracionInvalidaError`.
+- Si falla la lectura o escritura de datos, se lanza `PersistenciaError`.
+
+Los repositorios de persistencia capturan errores de lectura, escritura, formato o datos corruptos y los convierten en `PersistenciaError`, para que el menu pueda mostrar un mensaje claro sin cerrar el programa de forma brusca.
+
+## Dependencias
+
+El proyecto no requiere dependencias externas. Solo necesita Python 3.10 o superior.
+
+```bash
+python --version
+```
+
+## Estado Actual
+
+El programa funciona por consola y mantiene persistencia en JSON como formato principal. Tambien incluye guardado y carga en fichero binario como funcionalidad adicional.
+
+## Mejoras Futuras
+
+- Incorporar una base de datos para sustituir o complementar los ficheros.
+- Anadir tests automatizados para modelos, validadores y repositorios.
+- Crear una interfaz grafica o web para hacer el uso mas visual.
+
+## Autoria
+
+Trabajo realizado por Pablo Candela y Blanca Xifra.
