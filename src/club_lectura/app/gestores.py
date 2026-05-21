@@ -60,7 +60,7 @@ def agregar_articulo() -> None:
     nivel = elegir_nivel()
     paginas = pedir_entero("Número de páginas: ")
     revista = pedir_texto("Revista: ")
-    doi = pedir_texto("DOI: ")
+    doi = pedir_texto("DOI (opcional): ") or None
 
     try:
         articulo = Articulo(
@@ -263,17 +263,23 @@ def eliminar_material():
     for bibliografia in bibliografias:
         bibliografia.eliminar_material(material_id)
 
+    sesiones[:] = [
+        sesion for sesion in sesiones
+        if sesion.material.id != material_id
+    ]
+
     print(f"\nMaterial eliminado correctamente: {material_a_eliminar.titulo}")
 
-def guardar_datos_json() -> None:
+def guardar_datos_json() -> bool:
     repositorio = JsonRepository("data/club_lectura.json")
     try:
         repositorio.guardar(materiales, bibliografias, sesiones)
     except PersistenciaError as error:
         print(f"\nError de persistencia: {error}")
-        return
+        return False
 
     print("\nDatos guardados correctamente en data/club_lectura.json.")
+    return True
 
 
 def cargar_datos_json() -> None:
@@ -298,15 +304,16 @@ def cargar_datos_json() -> None:
     except PersistenciaError as error:
         print(f"\nError de persistencia: {error}")
 
-def guardar_datos_binario() -> None:
+def guardar_datos_binario() -> bool:
     repositorio = BinaryRepository("data/club_lectura.bin")
     try:
         repositorio.guardar(materiales, bibliografias, sesiones)
     except PersistenciaError as error:
         print(f"\nError de persistencia: {error}")
-        return
+        return False
 
     print("\nDatos guardados correctamente en formato binario.")
+    return True
 
 
 def cargar_datos_binario() -> None:

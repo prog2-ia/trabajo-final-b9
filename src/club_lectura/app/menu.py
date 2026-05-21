@@ -78,8 +78,10 @@ def ejecutar_menu():
         elif opcion == "16":
             cargar_datos_binario()
         elif opcion == "0":
-            guardar_datos_json()
-            print("\nDatos guardados. Saliendo del programa...")
+            if guardar_datos_json():
+                print("\nDatos guardados. Saliendo del programa...")
+            else:
+                print("\nSaliendo del programa sin guardar los ultimos cambios.")
             break
         else:
             print("\nOpción no válida. Inténtalo de nuevo.")

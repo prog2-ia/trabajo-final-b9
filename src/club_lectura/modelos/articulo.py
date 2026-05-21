@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from club_lectura.modelos.material import MaterialBibliografico
 from club_lectura.utils.validadores import validar_texto_no_vacio
 
