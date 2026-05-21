@@ -1,3 +1,5 @@
+"""Agrupa los modelos del dominio para importarlos desde un unico modulo."""
+
 from .material import MaterialBibliografico
 from .libro import Libro
 from .articulo import Articulo

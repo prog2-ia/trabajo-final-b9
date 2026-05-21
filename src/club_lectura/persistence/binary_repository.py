@@ -1,3 +1,5 @@
+"""Persistencia binaria usando pickle."""
+
 from __future__ import annotations
 
 import pickle
@@ -8,10 +10,14 @@ from club_lectura.modelos import MaterialBibliografico
 
 
 class BinaryRepository:
+    """Repositorio que guarda y carga objetos Python en formato binario."""
+
     def __init__(self, ruta_fichero: str = "data/club_lectura.bin") -> None:
+        """Recibe la ruta del fichero binario de trabajo."""
         self.ruta_fichero = Path(ruta_fichero)
 
     def guardar(self, materiales: list, bibliografias: list, sesiones: list) -> None:
+        """Serializa el estado completo usando pickle."""
         try:
             self.ruta_fichero.parent.mkdir(parents=True, exist_ok=True)
 
@@ -30,6 +36,7 @@ class BinaryRepository:
             ) from error
 
     def cargar(self) -> tuple[list, list, list]:
+        """Deserializa el estado completo desde pickle."""
         if not self.ruta_fichero.exists():
             return [], [], []
 
@@ -66,6 +73,7 @@ class BinaryRepository:
             ) from error
 
     def _actualizar_contador_ids(self, materiales: list) -> None:
+        """Evita repetir ids despues de cargar objetos desde disco."""
         if not materiales:
             MaterialBibliografico._contador_ids = 1
             return

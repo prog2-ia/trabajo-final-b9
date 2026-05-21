@@ -1,11 +1,15 @@
+"""Funciones auxiliares para leer y mostrar datos por consola."""
+
 from club_lectura.enums import Genero, Nivel
 
 
 def pedir_texto(mensaje: str) -> str:
+    """Pide texto por consola y elimina espacios sobrantes."""
     return input(mensaje).strip()
 
 
 def pedir_entero(mensaje: str) -> int:
+    """Pide un entero hasta que el usuario introduce un valor valido."""
     while True:
         try:
             return int(input(mensaje).strip())
@@ -14,6 +18,7 @@ def pedir_entero(mensaje: str) -> int:
 
 
 def elegir_genero():
+    """Muestra los generos disponibles y devuelve el elegido."""
     generos = list(Genero)
 
     print("\nGéneros disponibles:")
@@ -28,6 +33,7 @@ def elegir_genero():
 
 
 def elegir_nivel():
+    """Muestra los niveles disponibles y devuelve el elegido."""
     niveles = list(Nivel)
 
     print("\nNiveles disponibles:")
@@ -42,6 +48,7 @@ def elegir_nivel():
 
 
 def mostrar_materiales(materiales: list) -> None:
+    """Imprime los materiales registrados o avisa si no hay ninguno."""
     if not materiales:
         print("\nNo hay materiales registrados.")
         return
@@ -52,6 +59,7 @@ def mostrar_materiales(materiales: list) -> None:
 
 
 def seleccionar_material(materiales: list):
+    """Permite elegir un material por posicion dentro de una lista."""
     if not materiales:
         print("\nNo hay materiales disponibles.")
         return None
@@ -67,6 +75,7 @@ def seleccionar_material(materiales: list):
 
 
 def mostrar_bibliografias(bibliografias: list) -> None:
+    """Imprime las bibliografias registradas o avisa si no hay ninguna."""
     if not bibliografias:
         print("\nNo hay bibliografías registradas.")
         return
@@ -77,6 +86,7 @@ def mostrar_bibliografias(bibliografias: list) -> None:
 
 
 def seleccionar_bibliografia(bibliografias: list):
+    """Permite elegir una bibliografia por posicion dentro de una lista."""
     if not bibliografias:
         print("\nNo hay bibliografías disponibles.")
         return None

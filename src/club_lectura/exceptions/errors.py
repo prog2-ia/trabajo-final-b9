@@ -1,3 +1,5 @@
+"""Errores propios del dominio del club de lectura."""
+
 class ClubLecturaError(Exception):
     """Excepción base del proyecto."""
 
