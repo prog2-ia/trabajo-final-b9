@@ -1,3 +1,7 @@
+"""Persistencia en fichero JSON."""
+
+from __future__ import annotations
+
 import json
 from datetime import datetime
 from pathlib import Path
@@ -8,22 +12,33 @@ from club_lectura.exceptions import PersistenciaError
 
 
 class JsonRepository:
+    """Repositorio que guarda y reconstruye el estado usando JSON."""
+
     def __init__(self, ruta_fichero: str = "data/club_lectura.json") -> None:
+        """Recibe la ruta del fichero JSON de trabajo."""
         self.ruta_fichero = Path(ruta_fichero)
 
     def guardar(self, materiales: list, bibliografias: list, sesiones: list) -> None:
-        self.ruta_fichero.parent.mkdir(parents=True, exist_ok=True)
+        """Convierte objetos del dominio a diccionarios y los escribe en JSON."""
+        try:
+            self.ruta_fichero.parent.mkdir(parents=True, exist_ok=True)
 
-        datos = {
-            "materiales": [self._material_a_dict(material) for material in materiales],
-            "bibliografias": [self._bibliografia_a_dict(bibliografia) for bibliografia in bibliografias],
-            "sesiones": [self._sesion_a_dict(sesion) for sesion in sesiones],
-        }
+            datos = {
+                "materiales": [self._material_a_dict(material) for material in materiales],
+                "bibliografias": [self._bibliografia_a_dict(bibliografia) for bibliografia in bibliografias],
+                "sesiones": [self._sesion_a_dict(sesion) for sesion in sesiones],
+            }
 
-        with open(self.ruta_fichero, "w", encoding="utf-8") as fichero:
-            json.dump(datos, fichero, indent=4, ensure_ascii=False)
+            with open(self.ruta_fichero, "w", encoding="utf-8") as fichero:
+                json.dump(datos, fichero, indent=4, ensure_ascii=False)
+
+        except (OSError, TypeError, ValueError) as error:
+            raise PersistenciaError(
+                "No se han podido guardar los datos en el archivo JSON."
+            ) from error
 
     def cargar(self) -> tuple[list, list, list]:
+        """Lee el JSON y reconstruye materiales, bibliografias y sesiones."""
         if not self.ruta_fichero.exists():
             return [], [], []
 
@@ -86,6 +101,7 @@ class JsonRepository:
             ) from error
 
     def _material_a_dict(self, material) -> dict:
+        """Convierte un Libro o Articulo a un diccionario serializable."""
         datos = {
             "id": material.id,
             "titulo": material.titulo,
@@ -111,6 +127,7 @@ class JsonRepository:
         return datos
 
     def _dict_a_material(self, datos: dict):
+        """Reconstruye un material concreto a partir de sus datos JSON."""
         tipo = datos.get("tipo")
 
         if tipo == "libro":
@@ -150,6 +167,7 @@ class JsonRepository:
         return material
 
     def _resena_a_dict(self, resena) -> dict:
+        """Convierte una resena a datos simples para JSON."""
         return {
             "autor_resena": resena.autor_resena,
             "valoracion": resena.valoracion,
@@ -157,12 +175,14 @@ class JsonRepository:
         }
 
     def _bibliografia_a_dict(self, bibliografia) -> dict:
+        """Guarda una bibliografia por nombre y por ids de materiales."""
         return {
             "nombre": bibliografia.nombre,
             "materiales_ids": [material.id for material in bibliografia],
         }
 
     def _dict_a_bibliografia(self, datos: dict, materiales_por_id: dict) -> Bibliografia:
+        """Reconstruye una bibliografia enlazando ids con objetos materiales."""
         bibliografia = Bibliografia(datos["nombre"])
 
         for material_id in datos.get("materiales_ids", []):
@@ -173,6 +193,7 @@ class JsonRepository:
         return bibliografia
 
     def _sesion_a_dict(self, sesion) -> dict:
+        """Convierte una sesion a datos simples para JSON."""
         return {
             "fecha": sesion.fecha.isoformat(),
             "material_id": sesion.material.id,
@@ -181,6 +202,7 @@ class JsonRepository:
         }
 
     def _dict_a_sesion(self, datos: dict, materiales_por_id: dict):
+        """Reconstruye una sesion si el material asociado existe."""
         material = materiales_por_id.get(datos["material_id"])
 
         if material is None:
@@ -198,6 +220,7 @@ class JsonRepository:
         return sesion
 
     def _actualizar_contador_ids(self, materiales: list) -> None:
+        """Evita repetir ids despues de cargar materiales desde disco."""
         if not materiales:
             MaterialBibliografico._contador_ids = 1
             return

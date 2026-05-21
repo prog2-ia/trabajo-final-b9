@@ -1,3 +1,5 @@
+"""Modelo base para los materiales bibliograficos."""
+
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
@@ -10,9 +12,12 @@ from club_lectura.utils.validadores import validar_entero_positivo, validar_text
 
 
 class MaterialBibliografico(ABC):
+    """Clase base para cualquier lectura gestionada por el club."""
+
     _contador_ids = 1
 
     def __init__(self, titulo: str, autor: str, genero: Genero, nivel: Nivel, paginas: int) -> None:
+        """Inicializa los metadatos comunes y asigna un id autoincremental."""
         self._id = MaterialBibliografico._contador_ids
         MaterialBibliografico._contador_ids += 1
 
@@ -25,6 +30,7 @@ class MaterialBibliografico(ABC):
 
     @property
     def id(self) -> int:
+        """Identificador unico del material."""
         return self._id
 
     @property
@@ -73,21 +79,21 @@ class MaterialBibliografico(ABC):
 
     @property
     def resenas(self) -> list:
+        """Devuelve una copia de las resenas para proteger la lista interna."""
         return self._resenas.copy()
 
     def agregar_resena(self, resena) -> None:
+        """Asocia una nueva resena al material."""
         self._resenas.append(resena)
 
     def valoracion_media(self) -> float:
+        """Calcula la media de valoraciones o 0.0 si no hay resenas."""
         if not self._resenas:
             return 0.0
         return round(mean(resena.valoracion for resena in self._resenas), 2)
 
     def prioridad(self) -> tuple:
-        """
-        Cuanto mayor sea la valoración media y menor el nivel de dificultad,
-        más prioritario será el título.
-        """
+        """Ordena por media alta, nivel mas facil y menor numero de paginas."""
         orden_nivel = {
             Nivel.BASICO: 1,
             Nivel.INTERMEDIO: 2,
@@ -97,17 +103,21 @@ class MaterialBibliografico(ABC):
 
     @abstractmethod
     def descripcion_corta(self) -> str:
+        """Devuelve una descripcion breve propia de cada subtipo."""
         pass
 
     def __lt__(self, other: "MaterialBibliografico") -> bool:
+        """Permite ordenar materiales usando la prioridad calculada."""
         if not isinstance(other, MaterialBibliografico):
             return NotImplemented
         return self.prioridad() < other.prioridad()
 
     def __eq__(self, other: object) -> bool:
+        """Dos materiales se consideran iguales si tienen el mismo id."""
         if not isinstance(other, MaterialBibliografico):
             return False
         return self.id == other.id
 
     def __str__(self) -> str:
+        """Representacion legible para listados del menu."""
         return f"{self.titulo} - {self.autor} ({self.genero.value}, {self.nivel.value})"

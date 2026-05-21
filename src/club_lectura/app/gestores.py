@@ -1,3 +1,5 @@
+"""Operaciones que ejecuta cada opcion del menu de consola."""
+
 from datetime import datetime
 
 from club_lectura.exceptions import (
@@ -22,13 +24,14 @@ from club_lectura.persistence import JsonRepository
 from club_lectura.persistence import BinaryRepository
 from club_lectura.exceptions import PersistenciaError
 
-
+# Estado principal de la aplicacion durante la ejecucion del menu.
 materiales = []
 bibliografias = []
 sesiones = []
 
 
 def agregar_libro() -> None:
+    """Pide los datos de un libro, lo valida y lo anade a memoria."""
     print("\n=== AÑADIR LIBRO ===")
     titulo = pedir_texto("Título: ")
     autor = pedir_texto("Autor: ")
@@ -53,6 +56,7 @@ def agregar_libro() -> None:
 
 
 def agregar_articulo() -> None:
+    """Pide los datos de un articulo, lo valida y lo anade a memoria."""
     print("\n=== AÑADIR ARTÍCULO ===")
     titulo = pedir_texto("Título: ")
     autor = pedir_texto("Autor: ")
@@ -60,7 +64,7 @@ def agregar_articulo() -> None:
     nivel = elegir_nivel()
     paginas = pedir_entero("Número de páginas: ")
     revista = pedir_texto("Revista: ")
-    doi = pedir_texto("DOI: ")
+    doi = pedir_texto("DOI (opcional): ") or None
 
     try:
         articulo = Articulo(
@@ -79,10 +83,12 @@ def agregar_articulo() -> None:
 
 
 def ver_materiales() -> None:
+    """Muestra todos los materiales cargados en memoria."""
     mostrar_materiales(materiales)
 
 
 def crear_bibliografia() -> None:
+    """Crea una bibliografia vacia con el nombre indicado por el usuario."""
     print("\n=== CREAR BIBLIOGRAFÍA ===")
     nombre = pedir_texto("Nombre de la bibliografía: ")
 
@@ -94,7 +100,8 @@ def crear_bibliografia() -> None:
         print(f"\nError al crear la bibliografía: {e}")
 
 
-def agregar_material_a_bibliografia():
+def agregar_material_a_bibliografia() -> None:
+    """Selecciona una bibliografia y un material para vincularlos."""
     print("\n=== AÑADIR MATERIAL A BIBLIOGRAFÍA ===")
     bibliografia = seleccionar_bibliografia(bibliografias)
     if bibliografia is None:
@@ -111,7 +118,8 @@ def agregar_material_a_bibliografia():
         print(f"\nNo se pudo añadir: {e}")
 
 
-def ver_bibliografias():
+def ver_bibliografias() -> None:
+    """Lista bibliografias y, si el usuario quiere, muestra su contenido."""
     mostrar_bibliografias(bibliografias)
 
     if not bibliografias:
@@ -137,7 +145,8 @@ def ver_bibliografias():
         print(f"- {material}")
 
 
-def agregar_resena():
+def agregar_resena() -> None:
+    """Crea una resena para el material seleccionado."""
     print("\n=== AÑADIR RESEÑA ===")
     material = seleccionar_material(materiales)
     if material is None:
@@ -156,7 +165,8 @@ def agregar_resena():
         print(f"\nError al añadir la reseña: {e}")
 
 
-def ver_resenas_y_media():
+def ver_resenas_y_media() -> None:
+    """Muestra resenas y media de valoracion de un material."""
     print("\n=== VER RESEÑAS Y VALORACIÓN MEDIA ===")
     material = seleccionar_material(materiales)
     if material is None:
@@ -174,7 +184,8 @@ def ver_resenas_y_media():
         print(f"- {resena}")
 
 
-def crear_sesion():
+def crear_sesion() -> None:
+    """Programa una sesion de lectura para un material existente."""
     print("\n=== CREAR SESIÓN DE LECTURA ===")
     material = seleccionar_material(materiales)
     if material is None:
@@ -210,7 +221,8 @@ def crear_sesion():
     print(sesion)
 
 
-def ver_sesiones():
+def ver_sesiones() -> None:
+    """Muestra todas las sesiones registradas."""
     if not sesiones:
         print("\nNo hay sesiones registradas.")
         return
@@ -220,7 +232,8 @@ def ver_sesiones():
         print(f"{i}. {sesion}")
 
 
-def ver_materiales_ordenados():
+def ver_materiales_ordenados() -> None:
+    """Muestra materiales ordenados por prioridad descendente."""
     if not materiales:
         print("\nNo hay materiales registrados.")
         return
@@ -232,7 +245,9 @@ def ver_materiales_ordenados():
             f"nivel={material.nivel.value}"
         )
 
-def eliminar_material():
+
+def eliminar_material() -> None:
+    """Elimina un material y limpia bibliografias y sesiones asociadas."""
     if not materiales:
         print("\nNo hay materiales para eliminar.")
         return
@@ -263,16 +278,28 @@ def eliminar_material():
     for bibliografia in bibliografias:
         bibliografia.eliminar_material(material_id)
 
+    sesiones[:] = [
+        sesion for sesion in sesiones
+        if sesion.material.id != material_id
+    ]
+
     print(f"\nMaterial eliminado correctamente: {material_a_eliminar.titulo}")
 
-def guardar_datos_json() -> None:
+def guardar_datos_json() -> bool:
+    """Guarda el estado actual en JSON y devuelve si tuvo exito."""
     repositorio = JsonRepository("data/club_lectura.json")
-    repositorio.guardar(materiales, bibliografias, sesiones)
+    try:
+        repositorio.guardar(materiales, bibliografias, sesiones)
+    except PersistenciaError as error:
+        print(f"\nError de persistencia: {error}")
+        return False
 
     print("\nDatos guardados correctamente en data/club_lectura.json.")
+    return True
 
 
 def cargar_datos_json() -> None:
+    """Carga el estado desde JSON y reemplaza las listas actuales."""
     repositorio = JsonRepository("data/club_lectura.json")
 
     try:
@@ -294,17 +321,29 @@ def cargar_datos_json() -> None:
     except PersistenciaError as error:
         print(f"\nError de persistencia: {error}")
 
-def guardar_datos_binario() -> None:
+
+def guardar_datos_binario() -> bool:
+    """Guarda el estado actual en formato binario con pickle."""
     repositorio = BinaryRepository("data/club_lectura.bin")
-    repositorio.guardar(materiales, bibliografias, sesiones)
+    try:
+        repositorio.guardar(materiales, bibliografias, sesiones)
+    except PersistenciaError as error:
+        print(f"\nError de persistencia: {error}")
+        return False
 
     print("\nDatos guardados correctamente en formato binario.")
+    return True
 
 
 def cargar_datos_binario() -> None:
+    """Carga el estado desde el fichero binario y reemplaza las listas."""
     repositorio = BinaryRepository("data/club_lectura.bin")
 
-    materiales_cargados, bibliografias_cargadas, sesiones_cargadas = repositorio.cargar()
+    try:
+        materiales_cargados, bibliografias_cargadas, sesiones_cargadas = repositorio.cargar()
+    except PersistenciaError as error:
+        print(f"\nError de persistencia: {error}")
+        return
 
     materiales.clear()
     bibliografias.clear()

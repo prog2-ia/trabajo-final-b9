@@ -1,3 +1,5 @@
+"""Menu interactivo principal del programa."""
+
 from .gestores import (
     agregar_articulo,
     agregar_libro,
@@ -19,6 +21,7 @@ from .gestores import (
 
 
 def mostrar_menu():
+    """Imprime todas las opciones disponibles del programa."""
     print("\n=== CLUB DE LECTURA Y BIBLIOGRAFÍAS ===")
     print("1. Añadir libro")
     print("2. Añadir artículo")
@@ -40,6 +43,7 @@ def mostrar_menu():
 
 
 def ejecutar_menu():
+    """Carga datos, atiende opciones del usuario y guarda al salir."""
     cargar_datos_json()
     while True:
         mostrar_menu()
@@ -78,8 +82,10 @@ def ejecutar_menu():
         elif opcion == "16":
             cargar_datos_binario()
         elif opcion == "0":
-            guardar_datos_json()
-            print("\nDatos guardados. Saliendo del programa...")
+            if guardar_datos_json():
+                print("\nDatos guardados. Saliendo del programa...")
+            else:
+                print("\nSaliendo del programa sin guardar los ultimos cambios.")
             break
         else:
             print("\nOpción no válida. Inténtalo de nuevo.")

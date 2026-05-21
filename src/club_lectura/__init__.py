@@ -1,3 +1,5 @@
+"""Exporta las clases principales del paquete club_lectura."""
+
 from club_lectura.enums import Genero, Nivel
 from club_lectura.modelos import (
     MaterialBibliografico,

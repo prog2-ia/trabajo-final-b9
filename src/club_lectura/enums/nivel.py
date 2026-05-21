@@ -1,3 +1,5 @@
+"""Niveles de dificultad permitidos para una lectura."""
+
 from enum import Enum
 
 class Nivel(Enum):
