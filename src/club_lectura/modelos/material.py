@@ -1,7 +1,5 @@
 """Modelo base para los materiales bibliograficos."""
 
-from __future__ import annotations
-
 from abc import ABC, abstractmethod
 from statistics import mean
 

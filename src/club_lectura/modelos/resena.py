@@ -1,7 +1,5 @@
 """Modelo de resena."""
 
-from __future__ import annotations
-
 from club_lectura.exceptions.errors import ValoracionInvalidaError
 from club_lectura.utils.validadores import validar_texto_no_vacio
 
@@ -51,18 +49,6 @@ class Resena:
     def comentario(self, valor: str) -> None:
         """Valida que el comentario no este vacio."""
         self._comentario = validar_texto_no_vacio(valor, "comentario")
-
-    def __gt__(self, other: "Resena") -> bool:
-        """Permite comparar resenas por valoracion."""
-        if not isinstance(other, Resena):
-            return NotImplemented
-        return self.valoracion > other.valoracion
-
-    def __lt__(self, other: "Resena") -> bool:
-        """Permite ordenar resenas de menor a mayor valoracion."""
-        if not isinstance(other, Resena):
-            return NotImplemented
-        return self.valoracion < other.valoracion
 
     def __str__(self) -> str:
         """Representacion legible de la resena para consola."""

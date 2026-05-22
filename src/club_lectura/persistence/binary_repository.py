@@ -1,7 +1,5 @@
 """Persistencia binaria usando pickle."""
 
-from __future__ import annotations
-
 import pickle
 from pathlib import Path
 

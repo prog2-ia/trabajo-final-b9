@@ -80,8 +80,6 @@ Los generos y niveles se eligen desde listas cerradas para evitar errores de esc
 
 Una bibliografia agrupa materiales. El programa evita duplicados: si intentas anadir dos veces el mismo material a la misma bibliografia, se muestra un error controlado.
 
-Las bibliografias tambien soportan combinacion con el operador `+` dentro del codigo, creando una nueva bibliografia sin repetir materiales.
-
 ## Resenas
 
 Cada resena pertenece a un material y contiene:
@@ -172,7 +170,6 @@ Excepciones principales:
 - `DuplicadoError`
 - `MetadatoInvalidoError`
 - `ValoracionInvalidaError`
-- `ElementoNoEncontradoError`
 - `PersistenciaError`
 
 Ejemplos de errores controlados:
