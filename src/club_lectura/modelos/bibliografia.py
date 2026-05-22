@@ -1,7 +1,5 @@
 """Modelo de bibliografia."""
 
-from __future__ import annotations
-
 from club_lectura.exceptions.errors import DuplicadoError
 from club_lectura.utils.validadores import validar_texto_no_vacio
 
