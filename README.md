@@ -218,6 +218,8 @@ trabajo-final-b9/
 |-- data/
 |   |-- club_lectura.json
 |   `-- club_lectura.bin
+|-- dist/
+|   `-- club_lectura.exe
 `-- src/
     `-- club_lectura/
         |-- app/
@@ -240,6 +242,7 @@ trabajo-final-b9/
         |   |-- binary_repository.py
         |   `-- json_repository.py
         `-- utils/
+            |-- rutas.py
             `-- validadores.py
 ```
 
@@ -250,8 +253,9 @@ trabajo-final-b9/
 - `enums/`: contiene generos y niveles validos.
 - `exceptions/`: contiene excepciones personalizadas.
 - `persistence/`: contiene los repositorios JSON y binario.
-- `utils/`: contiene validadores reutilizables.
+- `utils/`: contiene validadores reutilizables y utilidades de rutas para ejecutar el proyecto tanto desde Python como desde el ejecutable.
 - `data/`: contiene los ficheros donde se guardan los datos.
+- `dist/`: contiene el ejecutable generado con PyInstaller para Windows.
 
 ## Ejemplo De Ejecucion
 
@@ -404,13 +408,15 @@ No se pudo anadir: El material 'Dune' ya existe en la bibliografia 'Ciencia ficc
 
 ## Dependencias
 
-No hay dependencias externas. El proyecto solo necesita Python.
+Para ejecutar el codigo fuente no hay dependencias externas. El proyecto solo necesita Python.
 
 Version recomendada:
 
 ```text
 Python 3.10 o superior
 ```
+
+El ejecutable incluido en `dist/club_lectura.exe` ya contiene lo necesario para lanzar la aplicacion en Windows. PyInstaller solo es necesario si se quiere volver a generar el ejecutable.
 
 ## Estado Actual
 
