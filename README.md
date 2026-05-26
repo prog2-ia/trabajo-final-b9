@@ -35,44 +35,26 @@ data/club_lectura.json
 
 Si el fichero no existe, el programa empieza con listas vacias. Al salir con la opcion `0`, guarda automaticamente el estado actual en ese mismo fichero JSON.
 
-## Crear Ejecutable Con PyInstaller
+## Ejecutable
 
-En Windows, desde la raiz del proyecto:
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\activate
-python -m pip install --upgrade pip
-python -m pip install pyinstaller
-pyinstaller --onefile --name club_lectura --paths src main.py
-```
-
-Si Windows no reconoce el comando `python`, hay que instalar Python o anadirlo al `PATH`. Si esta disponible el lanzador de Python, tambien se puede sustituir `python` por `py`.
-
-El ejecutable se genera en:
+El proyecto incluye un ejecutable generado con PyInstaller:
 
 ```text
 dist/club_lectura.exe
 ```
 
-Para ejecutarlo:
+En Windows se puede ejecutar desde la raiz del proyecto con:
 
 ```powershell
 .\dist\club_lectura.exe
 ```
 
-El programa creara o usara la carpeta `data` junto al ejecutable para guardar `club_lectura.json` y `club_lectura.bin`.
+El ejecutable crea o usa la carpeta `data` junto al programa para guardar `club_lectura.json` y `club_lectura.bin`.
 
-Si se quieren llevar al ejecutable los datos actuales del proyecto:
+El comando usado para generarlo fue:
 
 ```powershell
-Copy-Item -Recurse -Force data dist\data
-```
-
-Si se hace en Linux o macOS, el comando de PyInstaller es el mismo y el ejecutable se lanzaria asi:
-
-```bash
-./dist/club_lectura
+pyinstaller --onefile --name club_lectura --paths src main.py
 ```
 
 ## Menu Principal
