@@ -23,6 +23,7 @@ from .io import (
 from club_lectura.persistence import JsonRepository
 from club_lectura.persistence import BinaryRepository
 from club_lectura.exceptions import PersistenciaError
+from club_lectura.utils.rutas import obtener_ruta_datos
 
 # Estado principal de la aplicacion durante la ejecucion del menu.
 materiales = []
@@ -287,7 +288,7 @@ def eliminar_material() -> None:
 
 def guardar_datos_json() -> bool:
     """Guarda el estado actual en JSON y devuelve si tuvo exito."""
-    repositorio = JsonRepository("data/club_lectura.json")
+    repositorio = JsonRepository(obtener_ruta_datos("club_lectura.json"))
     try:
         repositorio.guardar(materiales, bibliografias, sesiones)
     except PersistenciaError as error:
@@ -300,7 +301,7 @@ def guardar_datos_json() -> bool:
 
 def cargar_datos_json() -> None:
     """Carga el estado desde JSON y reemplaza las listas actuales."""
-    repositorio = JsonRepository("data/club_lectura.json")
+    repositorio = JsonRepository(obtener_ruta_datos("club_lectura.json"))
 
     try:
         materiales_cargados, bibliografias_cargadas, sesiones_cargadas = repositorio.cargar()
@@ -324,7 +325,7 @@ def cargar_datos_json() -> None:
 
 def guardar_datos_binario() -> bool:
     """Guarda el estado actual en formato binario con pickle."""
-    repositorio = BinaryRepository("data/club_lectura.bin")
+    repositorio = BinaryRepository(obtener_ruta_datos("club_lectura.bin"))
     try:
         repositorio.guardar(materiales, bibliografias, sesiones)
     except PersistenciaError as error:
@@ -337,7 +338,7 @@ def guardar_datos_binario() -> bool:
 
 def cargar_datos_binario() -> None:
     """Carga el estado desde el fichero binario y reemplaza las listas."""
-    repositorio = BinaryRepository("data/club_lectura.bin")
+    repositorio = BinaryRepository(obtener_ruta_datos("club_lectura.bin"))
 
     try:
         materiales_cargados, bibliografias_cargadas, sesiones_cargadas = repositorio.cargar()

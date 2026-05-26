@@ -10,7 +10,7 @@ from club_lectura.modelos import MaterialBibliografico
 class BinaryRepository:
     """Repositorio que guarda y carga objetos Python en formato binario."""
 
-    def __init__(self, ruta_fichero: str = "data/club_lectura.bin") -> None:
+    def __init__(self, ruta_fichero: str | Path = "data/club_lectura.bin") -> None:
         """Recibe la ruta del fichero binario de trabajo."""
         self.ruta_fichero = Path(ruta_fichero)
 

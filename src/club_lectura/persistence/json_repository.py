@@ -12,7 +12,7 @@ from club_lectura.exceptions import PersistenciaError
 class JsonRepository:
     """Repositorio que guarda y reconstruye el estado usando JSON."""
 
-    def __init__(self, ruta_fichero: str = "data/club_lectura.json") -> None:
+    def __init__(self, ruta_fichero: str | Path = "data/club_lectura.json") -> None:
         """Recibe la ruta del fichero JSON de trabajo."""
         self.ruta_fichero = Path(ruta_fichero)
 
